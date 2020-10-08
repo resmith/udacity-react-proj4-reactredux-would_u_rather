@@ -15,7 +15,7 @@ const TitleMenu = ({ authedUser }) => {
       </Button>
 
       <Button variant="contained" disabled={!authedUser}>
-        <Link to="/poll/new">New Question</Link>
+        <Link to="/questions/new">New Question</Link>
       </Button>
       <Button variant="contained" disabled={!authedUser}>
         <Link to="/leaderboard">Leader Board</Link>
