@@ -1,19 +1,27 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Link } from "@reach/router";
+import Avatar from "@material-ui/core/Avatar";
+import { Button } from "@material-ui/core";
 
-// import PropTypes from "prop-types";
-import { Link } from "@reach/router"
+const Logged = ({ authedUser, users }) => {
+  return (
+    <span className="row">
+      Hello &nbsp;{users.name} &nbsp;{" "}
+      {users.avatarURL ? <Avatar src={users.avatarURL} /> : ""}
+      &nbsp;{" "}
+      <Button variant="contained" disabled={!authedUser}>
+        <Link to="/signin">Logout</Link>
+      </Button>
+    </span>
+  );
+};
 
-const Logged = ({ authedUser }) => (
-  <div>
-    Hello {authedUser}
-    <Link to="/signin">Sign out</Link>
-  </div>
-);
+function mapStateToProps({ authedUser, users }) {
+  return {
+    authedUser,
+    users: users[authedUser],
+  };
+}
 
-// Logged.PropTypes = {
-  
-// };
-
-
-export default Logged;
-
+export default connect(mapStateToProps)(Logged);

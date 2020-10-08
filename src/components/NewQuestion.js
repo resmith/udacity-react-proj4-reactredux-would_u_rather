@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { navigate } from "@reach/router"
 
-import { handleAddPoll } from "../actions/questions";
+import { handleAddQuestion } from "../actions/questions";
 
-class NewPoll extends Component {
+class NewQuestion extends Component {
   componentDidMount() {
     if (!this.props.authedUser) {
       navigate("/signin")
@@ -40,7 +40,7 @@ class NewPoll extends Component {
       optionOneText: optionOne,
       optionTwoText: optionTwo,
     };
-    dispatch(handleAddPoll(question));
+    dispatch(handleAddQuestion(question));
 
     this.setState(() => ({
       optionOne: "",
@@ -104,4 +104,4 @@ function mapStateToProps({ authedUser, users }, { match }) {
   };
 }
 
-export default connect(mapStateToProps)(NewPoll);
+export default connect(mapStateToProps)(NewQuestion);

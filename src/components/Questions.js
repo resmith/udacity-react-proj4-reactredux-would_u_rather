@@ -1,93 +1,96 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { FaRegCheckCircle }  from 'react-icons/fa'
-import { Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { navigate } from "@reach/router"
 
-import { handleAddVote } from '../actions/questions'
-import { handleAddVoteToUser } from '../actions/users'
-import PageNotFound from '../components/PageNotFound'
-import { DEFAULT_AVATAR } from '../utils/constants'
-import { styles } from '../utils/styles'
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import Button from "@material-ui/core/Button";
+
+import { handleAddVote } from "../actions/questions";
+import { handleAddVoteToUser } from "../actions/users";
+import PageNotFound from "../components/PageNotFound";
 
 class Questions extends Component {
-  handleAddVote (vote) {
-    const { authedUser, question, dispatch, users } = this.props
-    dispatch(handleAddVote(question, vote, authedUser))
-    dispatch(handleAddVoteToUser(question, vote, authedUser, users))
+  state = { vote: "option1" };
+
+  handleSubmit(event) {
+    // event.preventDefault();
+    const vote = this.state.vote;
+    const { authedUser, question, dispatch, users } = this.props;
+    dispatch(handleAddVote(question, vote, authedUser));
+    dispatch(handleAddVoteToUser(question, vote, authedUser, users));
+    navigate("/");
   }
 
-  render () {
-    const { authedUser, question, users } = this.props
-    if (!question) { return <PageNotFound /> }
+  render() {
+    const selectVote = (event) => {
+      const vote = event.target.value;
+      this.setState({ vote: vote });
+    };
 
-    const questionAuthor = users.find(user => user.id === question.author)
+    const { question, users } = this.props;
+    if (!question) {
+      return <PageNotFound />;
+    }
 
+    const questionAuthor = users.find((user) => user.id === question.author);
     // Create the votes variables
-    const optionOneNum = question.optionOne.votes ? question.optionOne.votes.length : 0
-    const optionTwoNum = question.optionTwo.votes ? question.optionTwo.votes.length : 0
-    const TotalNum = optionOneNum + optionTwoNum
-    const optionOnePercent = TotalNum ? Math.floor((optionOneNum / TotalNum) * 100) : 0
-    const optionTwoPercent = TotalNum ? Math.floor((optionTwoNum / TotalNum) * 100) : 0
-    const showVotes = optionOneNum || optionTwoNum
-    const alreadyVoted = question.optionOne.votes.includes(authedUser) ||
-                         question.optionTwo.votes.includes(authedUser)
+    // const alreadyVoted =
+    //   question.optionOne.votes.includes(authedUser) ||
+    //   question.optionTwo.votes.includes(authedUser);
 
     return (
       <Card>
-        <CardHeader
-          title="Would you rather"
-          subtitle={`by ${questionAuthor.name}`}
-          avatar={questionAuthor ? questionAuthor.avatarURL : DEFAULT_AVATAR}
-          data-tip={questionAuthor.name}
-        />
-        <CardTitle
-          title=''
-          subtitle={`${question.optionOne.text} or ${question.optionTwo.text}?`}
-        />
-        <CardText>
-          {showVotes && question.optionOne.votes.includes(authedUser) && <FaRegCheckCircle className='check-icon' /> }
-          {showVotes && <div style={styles.indentPoll} >
-            Option1: {question.optionOne.text}<br />
-            <p>{optionOneNum} Votes</p>
-            <p>{optionOnePercent}% Selected</p>
-          </div>
-          }
-        </CardText>
-        <CardText>
-          {showVotes && question.optionTwo.votes.includes(authedUser) && <FaRegCheckCircle className='check-icon' /> }
-          {showVotes && <div style={styles.indentPoll} >
-            Option2: {question.optionTwo.text}<br />
-            <p>{optionTwoNum} Votes</p>
-            <p>{optionTwoPercent}% Selected</p>
-          </div>
-          }
-        </CardText>
+        <CardContent>
+          <p>{questionAuthor.name} asks:</p>
+        </CardContent>
         <CardActions>
-          <FlatButton
-            label="Vote #1"
-            onClick={() => this.handleAddVote('optionOne')}
-            disabled={alreadyVoted}
-          />
-          <FlatButton
-            label="Vote #2"
-            onClick={() => this.handleAddVote('optionTwo')}
-            disabled={alreadyVoted}
-          />
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Would you rather...</FormLabel>
+            <RadioGroup
+              aria-label="question"
+              name="question"
+              value={this.state.vote}
+              onChange={selectVote}
+            >
+              <FormControlLabel
+                value="optionOne"
+                control={<Radio />}
+                label={question.optionOne.text}
+              />
+              <FormControlLabel
+                value="optionTwo"
+                control={<Radio />}
+                label={question.optionTwo.text}
+              />
+            </RadioGroup>
+            <Button
+              type="submit"
+              variant="outlined"
+              color="primary"
+              onClick={() => this.handleSubmit()}
+            >
+              Submit
+            </Button>
+          </FormControl>
         </CardActions>
       </Card>
-    )
+    );
   }
 }
 
-function mapStateToProps ({authedUser, users, questions}, { match }) {
-  // const question = questions[id]
-
+function mapStateToProps({ authedUser, users, questions }, { questionId }) {
   return {
     authedUser,
     users: Object.values(users),
-    question: questions[match.params.questionId]
-  }
+    question: questions[questionId],
+  };
 }
 
-export default connect(mapStateToProps)(Questions)
+export default connect(mapStateToProps)(Questions);

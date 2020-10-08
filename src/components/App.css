@@ -22,18 +22,21 @@
   font-size: large;
 }
 
+.ActionHeading {
+  color: green;
+  text-align: center;
+  font-size: 1.25em;
+  font-weight: 500;
+
+}
+
 .mainContent {
   display: flex;
   flex-direction: column;
 }
-.col1 {
-  display: flex;
-  flex: 1;
-}
 
-.col10 {
-  display: flex;
-  flex: 10;
+.center {
+  text-align: center;
 }
 
 @keyframes App-logo-spin {
@@ -52,6 +55,17 @@
   margin: 10px;
 }
 
+.avatarSmall {
+  height: 12px;
+  border-radius: 2px;
+  margin: 2px;
+}
+
+
+.signinSelect {
+  width: 200px;
+}
+
 .TitleBar {
   display: flex;
   height: 1.75em;  
@@ -67,7 +81,19 @@
 .TitleMenu {
   display: flex;
   justify-content: space-around;
-  height: 3em;
+  height: 60px;
   align-items: center;  
   font-size: 1em;
+}
+
+.row {
+  white-space: nowrap;
+  align-items: center;
+  text-overflow:ellipsis;
+  display: flex;
+  flex-direction: row; 
+}
+
+.AppContainer {
+  margin-top: 2em;
 }

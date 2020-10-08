@@ -6,7 +6,4 @@ export const styles = {
   indentQuestion: {
     paddingLeft: '2em'
   },
-  indentPoll: {
-    textIndent: '2em'
-  }
 }

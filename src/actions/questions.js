@@ -40,7 +40,7 @@ export function handleAddVote (question, vote, authedUser) {
   }
 }
 
-export function handleAddPoll (info) {
+export function handleAddQuestion (info) {
   return (dispatch, getState) => {
     const { authedUser } = getState()
     dispatch(showLoading())

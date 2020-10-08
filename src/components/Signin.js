@@ -5,10 +5,12 @@ import { navigate } from "@reach/router";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from "@material-ui/core/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
 
-import { DEFAULT_AVATAR } from "../utils/constants";
 import { setAuthedUser } from "../actions/authedUser";
 
 class Signin extends Component {
@@ -19,9 +21,7 @@ class Signin extends Component {
   }
 
   handleChange = (event) => {
-    const name = event.target.name;
     const value = event.target.value;
-    console.log(`Signin ${name} ${value}`);
     const { dispatch } = this.props;
 
     this.setState({ userID: value });
@@ -32,38 +32,40 @@ class Signin extends Component {
 
   render() {
     const { users } = this.props;
-
     return (
-      <div>
-        <h3 className="center">Sign In</h3>
-        <FormControl>
-          <InputLabel htmlFor="userID">UserId</InputLabel>
-          {users && users.length && (
-            <div>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                onChange={this.handleChange}
-                value={this.state.userId}
-              >
-
-                {users.map((user) => (
-                  <MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>
-                ))}
-              </Select>
-              <Avatar
-                src={
-                  users &&
-                  this.state.userId &&
-                  users[this.state.userId].avatarUrl
-                    ? users[this.state.userId].avatarUrl
-                    : DEFAULT_AVATAR
-                }
-              />
-            </div>
-          )}
-        </FormControl>
-      </div>
+      <Card>
+        <CardContent>
+          <h3 className="center">Welcome to the Would You Rather App!</h3>
+          <p className="center">Please sign in to continue</p>
+          <br />
+          <p className="ActionHeading">Sign in</p>
+        </CardContent>
+        <CardActions>
+          <FormControl>
+            <InputLabel htmlFor="userID">UserId</InputLabel>
+            <br />
+            <br />
+            {users && users.length && (
+              <div>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  onChange={this.handleChange}
+                  value={this.state.userId}
+                  className="signinSelect"
+                >
+                  {users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.avatarURL ? <Avatar src={user.avatarURL} /> : ""}
+                      {user.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </div>
+            )}
+          </FormControl>
+        </CardActions>
+      </Card>
     );
   }
 }

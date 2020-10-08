@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Router } from "@reach/router";
-import { navigate } from "@reach/router";
+import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 
 import TitleBar from "./TitleBar";
 import TitleMenu from "./TitleMenu";
 import Dashboard from "./Dashboard";
-import NewPoll from "./NewPoll";
+import NewQuestion from "./NewQuestion";
 import Questions from "./Questions";
 import Leaderboard from "./Leaderboard";
 import Signin from "./Signin";
@@ -21,6 +21,8 @@ class App extends Component {
     this.props.dispatch(handleInitialData());
   }
 
+  // const classes = useStyles();
+
   render() {
     const { authedUser } = this.props;
 
@@ -28,29 +30,31 @@ class App extends Component {
       <Fragment>
         <TitleBar title="Would You Rather?" />
         <TitleMenu />
-        <Divider />
-        <span className="mainContent">
-          <span className="col1" />
-          <span className="col10">
-            <Router>
-              {!authedUser ? (
-                <Signin default />
-              ) : (
-                <Fragment>
-                  <Dashboard path="/" />
-                  <Signin path="/signin" />
-                  <Help path="/help" />
-                  <Dashboard path="/dashboard" />
-                  <NewPoll path="/poll/new" />
-                  <Questions path="/poll" />
-                  <Leaderboard path="/leaderboard" />
-                  <PageNotFound default />
-                </Fragment>
-              )}
-            </Router>
-          </span>
-          <span className="col1" />
-        </span>
+        <Divider className="TitleDivider" />
+        <Grid container spacing={2}>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={10}>
+            <Grid container justify="center" className="AppContainer" >
+              <Router>
+                {!authedUser ? (
+                  <Signin default />
+                ) : (
+                  <Fragment>
+                    <Dashboard path="/" />
+                    <Signin path="/signin" />
+                    <Help path="/help" />
+                    <Dashboard path="/dashboard" />
+                    <NewQuestion path="/questions/new" />
+                    <Questions path="/questions/:questionId" />
+                    <Leaderboard path="/leaderboard" />
+                    <PageNotFound default />
+                  </Fragment>
+                )}
+              </Router>
+            </Grid>
+          </Grid>
+          <Grid item xs={1}></Grid>
+        </Grid>
       </Fragment>
     );
   }
