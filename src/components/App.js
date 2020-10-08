@@ -6,7 +6,6 @@ import Divider from "@material-ui/core/Divider";
 
 import TitleBar from "./TitleBar";
 import TitleMenu from "./TitleMenu";
-import Home from "./Home";
 import Dashboard from "./Dashboard";
 import NewPoll from "./NewPoll";
 import Questions from "./Questions";
@@ -38,7 +37,7 @@ class App extends Component {
                 <Signin default />
               ) : (
                 <Fragment>
-                  <Home path="/" />
+                  <Dashboard path="/" />
                   <Signin path="/signin" />
                   <Help path="/help" />
                   <Dashboard path="/dashboard" />

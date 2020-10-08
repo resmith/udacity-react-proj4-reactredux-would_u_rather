@@ -5,8 +5,13 @@ import { Link } from "@reach/router";
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-const UNANSWERED = 0;
-const ANSWERED = 1;
+import DropDownMenu from "material-ui/DropDownMenu";
+import MenuItem from "material-ui/MenuItem";
+
+// import Question from './Question'
+
+const UNANSWERED = "unanswered";
+const ANSWERED = "answered";
 
 const Question = (props) => {
   if (props.question === null) {
@@ -23,27 +28,22 @@ const Question = (props) => {
 };
 
 class Dashboard extends Component {
-  state = { questionTab: UNANSWERED };
+  state = { questions: UNANSWERED };
 
-  handleChange = (event, newValue) => {
-    this.setState({ questionTab: newValue });
-  }
+  handleChange = (event, index, value) => this.setState({ questions: value });
 
   render() {
     const { authedUser, questions } = this.props;
-    console.log(`this.state.questionTab ${this.state.questionTab}`)
-    console.log("questions ", questions)
-
     return (
       <div>
         <h3 className="center">The Questions</h3>
-        <Tabs value={this.state.questionTab} onChange={this.handleChange} aria-label="simple tabs example">
-          <Tab label="Unanswered Questions" id="unanswered" />
-          <Tab label="Answered Questions" id="answered"/>
-        </Tabs>
+        <DropDownMenu value={questions} onChange={this.handleChange}>
+          <MenuItem value={UNANSWERED} primaryText="Unanswered Questions" />
+          <MenuItem value={ANSWERED} primaryText="Answered Questions" />
+        </DropDownMenu>
         <ul className="dashboard-list">
           {questions &&
-            this.state.questionTab === UNANSWERED &&
+            questions === UNANSWERED &&
             questions
               .filter(
                 (question) =>
@@ -79,7 +79,7 @@ class Dashboard extends Component {
 function mapStateToProps({ authedUser, questions }) {
   return {
     authedUser,
-    questions: Object.values(questions)
+    questions,
   };
 }
 

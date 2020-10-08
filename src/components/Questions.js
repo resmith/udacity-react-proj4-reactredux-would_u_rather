@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import { FaRegCheckCircle }  from 'react-icons/fa'
 import { Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -91,4 +90,4 @@ function mapStateToProps ({authedUser, users, questions}, { match }) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Questions))
+export default connect(mapStateToProps)(Questions)

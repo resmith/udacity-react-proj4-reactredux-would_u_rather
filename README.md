@@ -48,7 +48,4 @@ Structure
 1. Clone/Copy
 2. npm install
 3. npm start
-# udacity-react-proj4-reactredux-would_u_rather
-# udacity-react-proj4-reactredux-would_u_rather
-# udacity-react-proj4-reactredux-would_u_rather
-# udacity-react-proj4-reactredux-would_u_rather
+

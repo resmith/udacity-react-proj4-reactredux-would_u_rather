@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { navigate } from "@reach/router";
+
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-
 import Select from "@material-ui/core/Select";
+import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from "@material-ui/core/Avatar";
 
 import { DEFAULT_AVATAR } from "../utils/constants";
@@ -40,14 +41,14 @@ class Signin extends Component {
           {users && users.length && (
             <div>
               <Select
-                native
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 onChange={this.handleChange}
                 value={this.state.userId}
               >
+
                 {users.map((user) => (
-                  <option key={user.id} value={user.id}>{user.name}</option>
+                  <MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>
                 ))}
               </Select>
               <Avatar
