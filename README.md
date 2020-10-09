@@ -77,3 +77,6 @@ The application structure is in components
 - TitleBar - The title bar appears on every page and displays the app name
 
 - TitleMenu - The title menu shows the options for functions (Home, New Question, LeaderBoard)
+
+* Note on Styling \*
+  This projects focus was on functionality. The styling was worked on to give the application a professional appearnce, but there are some inconsistencies that were left in place because they were minor, didn't impact functionality and because of the short timeframe needed to complete the course.
