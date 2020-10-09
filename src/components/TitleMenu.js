@@ -7,7 +7,6 @@ import Logged from "./Logged";
 import Login from "./Login";
 
 const TitleMenu = ({ authedUser }) => {
-
   return (
     <nav className="TitleMenu">
       <Button variant="contained" disabled={!authedUser}>
@@ -15,7 +14,7 @@ const TitleMenu = ({ authedUser }) => {
       </Button>
 
       <Button variant="contained" disabled={!authedUser}>
-        <Link to="/questions/new">New Question</Link>
+        <Link to="/add">New Question</Link>
       </Button>
       <Button variant="contained" disabled={!authedUser}>
         <Link to="/leaderboard">Leader Board</Link>

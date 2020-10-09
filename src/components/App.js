@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Router } from "@reach/router";
+import LoadingBar from "react-redux-loading-bar";
+
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-
 import TitleBar from "./TitleBar";
 import TitleMenu from "./TitleMenu";
 import Dashboard from "./Dashboard";
@@ -32,6 +33,7 @@ class App extends Component {
         <TitleBar title="Would You Rather?" />
         <TitleMenu />
         <Divider className="TitleDivider" />
+        <LoadingBar />
         <Grid container spacing={2}>
           <Grid item xs={1}></Grid>
           <Grid item xs={10}>
@@ -45,7 +47,7 @@ class App extends Component {
                     <Signin path="/signin" />
                     <Help path="/help" />
                     <Dashboard path="/dashboard" />
-                    <NewQuestion path="/questions/new" />
+                    <NewQuestion path="/add" />
                     <Questions path="/questions/:questionId" />
                     <QuestionResult path="/questions/result/:questionId" />
                     <Leaderboard path="/leaderboard" />

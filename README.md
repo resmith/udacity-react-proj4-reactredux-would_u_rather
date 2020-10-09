@@ -50,8 +50,8 @@ _Note: The store provider is in Index.js _
 
 The primary redux stores/actions/reducers are:
 
-- questions
-- users
+- questions: A list of polling questions, their text and user responses
+- users: list of users, question ids they created and answers to polls
 - authedUser (the user logged in)
 
 * Note: Items outside of the src directory \*
@@ -62,9 +62,9 @@ The application structure is in components
 
 - App: Provides the routing and overall content structure for the app
 
-- Dashboard
+- Dashboard: Shows the unanwered and answered questions
 
-- Leaderboard:
+- Leaderboard: Show users and their questions answered, created and total points
 
 - Logged / Login: Displayed top right of the menu the user logged in and the login / logout button
 
