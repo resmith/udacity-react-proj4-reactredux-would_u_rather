@@ -9,6 +9,7 @@ import TitleMenu from "./TitleMenu";
 import Dashboard from "./Dashboard";
 import NewQuestion from "./NewQuestion";
 import Questions from "./Questions";
+import QuestionResult from "./QuestionResult";
 import Leaderboard from "./Leaderboard";
 import Signin from "./Signin";
 import Help from "./Help";
@@ -34,7 +35,7 @@ class App extends Component {
         <Grid container spacing={2}>
           <Grid item xs={1}></Grid>
           <Grid item xs={10}>
-            <Grid container justify="center" className="AppContainer" >
+            <Grid container justify="center" className="AppContainer">
               <Router>
                 {!authedUser ? (
                   <Signin default />
@@ -46,6 +47,7 @@ class App extends Component {
                     <Dashboard path="/dashboard" />
                     <NewQuestion path="/questions/new" />
                     <Questions path="/questions/:questionId" />
+                    <QuestionResult path="/questions/result/:questionId" />
                     <Leaderboard path="/leaderboard" />
                     <PageNotFound default />
                   </Fragment>

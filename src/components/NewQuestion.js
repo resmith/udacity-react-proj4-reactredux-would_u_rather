@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { navigate } from "@reach/router"
+import { navigate } from "@reach/router";
+
+import Paper from "@material-ui/core/Paper";
+import { Button } from "@material-ui/core";
 
 import { handleAddQuestion } from "../actions/questions";
 
 class NewQuestion extends Component {
   componentDidMount() {
     if (!this.props.authedUser) {
-      navigate("/signin")
+      navigate("/signin");
     }
   }
 
@@ -47,7 +50,7 @@ class NewQuestion extends Component {
       optionTwo: "",
     }));
 
-    navigate(`/`)
+    navigate(`/`);
   };
 
   render() {
@@ -56,43 +59,46 @@ class NewQuestion extends Component {
     const optionTwoLeft = 280 - optionTwo.length;
 
     return (
-      <div>
-        <h3 className="center">New Question</h3>
-        <form className="new-tweet" onSubmit={this.handleSubmit}>
-          Would you rather
-          <br />
-          <textarea
-            placeholder="option One"
-            value={optionOne}
-            onChange={this.handleChangeOptionOne}
-            className="textarea"
-            maxLength={280}
-          />
-          <br />
-          {optionOneLeft <= 100 && (
-            <div className="tweet-length">{optionOneLeft}</div>
-          )}
-          <textarea
-            placeholder="option Two"
-            value={optionTwo}
-            onChange={this.handleChangeOptionTwo}
-            className="textarea"
-            maxLength={280}
-          />
-          <br />
-          {optionTwoLeft <= 100 && (
-            <div className="tweet-length">{optionTwoLeft}</div>
-          )}
-          <br />
-          <button
-            className="btn"
-            type="submit"
-            disabled={optionOne === "" || optionTwo === ""}
-          >
-            Submit
-          </button>
-        </form>
-      </div>
+      <Paper elevation="3">
+        <div className="paperContainer">
+          <h3 className="center">New Question</h3>
+          <form className="new-tweet" onSubmit={this.handleSubmit}>
+            Would you rather
+            <br />
+            <textarea
+              placeholder="option One"
+              value={optionOne}
+              onChange={this.handleChangeOptionOne}
+              className="textarea"
+              maxLength={280}
+            />
+            <br />
+            {optionOneLeft <= 100 && (
+              <div className="tweet-length">{optionOneLeft}</div>
+            )}
+            <textarea
+              placeholder="option Two"
+              value={optionTwo}
+              onChange={this.handleChangeOptionTwo}
+              className="textarea"
+              maxLength={280}
+            />
+            <br />
+            {optionTwoLeft <= 100 && (
+              <div className="tweet-length">{optionTwoLeft}</div>
+            )}
+            <br />
+            <Button
+              // className="btn"
+              variant="contained"
+              type="submit"
+              disabled={optionOne === "" || optionTwo === ""}
+            >
+              Submit
+            </Button>
+          </form>
+        </div>
+      </Paper>
     );
   }
 }

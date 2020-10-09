@@ -27,7 +27,6 @@
   text-align: center;
   font-size: 1.25em;
   font-weight: 500;
-
 }
 
 .mainContent {
@@ -40,13 +39,16 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 .check-icon {
   display: flex;
   margin: 0 15px 0 5px;
-
 }
 
 .avatar {
@@ -61,39 +63,73 @@
   margin: 2px;
 }
 
-
 .signinSelect {
   width: 200px;
 }
 
 .TitleBar {
   display: flex;
-  height: 1.75em;  
+  height: 1.75em;
   justify-content: center;
   align-items: center;
   font-size: 1.25em;
 
   /* background-color: grey;  */
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 }
-
 
 .TitleMenu {
   display: flex;
   justify-content: space-around;
   height: 60px;
-  align-items: center;  
+  align-items: center;
   font-size: 1em;
 }
 
 .row {
   white-space: nowrap;
   align-items: center;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
 }
 
 .AppContainer {
   margin-top: 2em;
+}
+
+.userScore {
+  width: 32px;
+  height: 32px;
+  padding: 6px 6px;
+  margin: 6px;
+  background-color: green;
+  color: white;
+  border-radius: 8px;
+  text-align: center;
+  vertical-align: center;
+}
+
+.paperContainer {
+  padding: 6px 6px 6px 6px;
+  margin: 6px 6px 6px 6px;
+}
+
+.yourVoteContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+.yourVote {
+  justify-content: flex-end;
+  text-align: center;
+  padding: 2px 2px 2px 2px;
+  width: 42px;
+  height: 32px;
+  background-color: rgb(223, 196, 79);
+  color: black;
+  border-radius: 4px;
+  font-size: 0.8em;
+  color: white;
+  border-width: 2px;
+  border-color: black;
 }

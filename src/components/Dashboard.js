@@ -1,26 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "@reach/router";
 
+import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
+import DashboardCard from "./DashboardCard";
+
 const UNANSWERED = 0;
 const ANSWERED = 1;
-
-const Question = (props) => {
-  if (props.question === null) {
-    return <p>This Question doesn't exist</p>;
-  }
-
-  return (
-    // <Link to={`/questions/1234`}className='question'>
-    <Link to={`/questions/${props.question.id}`} className="question">
-      Would you rather {props.question.optionOne.text} or{" "}
-      {props.question.optionTwo.text}?
-    </Link>
-  );
-};
 
 class Dashboard extends Component {
   state = { questionTab: UNANSWERED };
@@ -30,20 +18,21 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { authedUser, questions } = this.props;
+    const { authedUser, questions, users } = this.props;
 
     return (
       <div>
         <h3 className="center">The Questions</h3>
-        <Tabs
-          value={this.state.questionTab}
-          onChange={this.handleChange}
-          aria-label="simple tabs example"
-        >
-          <Tab label="Unanswered Questions" id="unanswered" />
-          <Tab label="Answered Questions" id="answered" />
-        </Tabs>
-        <ul className="dashboard-list">
+        <Paper elevation={3}>
+          <Tabs
+            value={this.state.questionTab}
+            onChange={this.handleChange}
+            aria-label="simple tabs example"
+          >
+            <Tab label="Unanswered Questions" id="unanswered" />
+            <Tab label="Answered Questions" id="answered" />
+          </Tabs>
+
           {questions &&
             this.state.questionTab === UNANSWERED &&
             questions
@@ -54,34 +43,40 @@ class Dashboard extends Component {
               )
               .sort((a, b) => b.timestamp - a.timestamp)
               .map((question) => (
-                <li key={question.id}>
-                  <Question question={question} />
-                </li>
+                <DashboardCard
+                  key={question.id}
+                  question={question}
+                  user={users[question.author]}
+                />
               ))}
 
           {questions &&
-            this.state.questions === ANSWERED &&
+            this.state.questionTab === ANSWERED &&
             questions
               .filter(
                 (question) =>
                   question.optionOne.votes.includes(authedUser) ||
                   question.optionTwo.votes.includes(authedUser)
               )
+              .sort((a, b) => b.timestamp - a.timestamp)
               .map((question) => (
-                <li key={question.id}>
-                  <Question question={question} />
-                </li>
+                <DashboardCard
+                  key={question.id}
+                  question={question}
+                  user={users[question.author]}
+                />
               ))}
-        </ul>
+        </Paper>
       </div>
     );
   }
 }
 
-function mapStateToProps({ authedUser, questions }) {
+function mapStateToProps({ authedUser, questions, users }) {
   return {
     authedUser,
     questions: Object.values(questions),
+    users,
   };
 }
 
